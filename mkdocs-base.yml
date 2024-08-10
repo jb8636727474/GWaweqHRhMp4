@@ -1,0 +1,205 @@
+# MkDocs configuration
+# Used as base - look for .yml files with INHERIT
+site_name: Percona Everest
+site_description: Documentation
+site_author: Percona LLC
+site_url: ""
+copyright: Percona LLC, &#169; 2024
+use_directory_urls: false
+repo_name: percona/everest-doc
+repo_url: https://github.com/percona/everest-doc
+edit_uri: edit/main/docs/
+
+theme:
+  name: material
+  custom_dir: overrides
+  logo: assets/everest-mark.svg
+  favicon: assets/everest-fav.svg
+  font:
+    text: Roboto
+    code: Roboto Mono
+  icon:
+    edit: material/file-edit-outline
+    view: material/file-eye-outline
+
+  palette:
+    - media: "(prefers-color-scheme)"
+      toggle:
+        icon: material/brightness-auto
+        name: Color theme set to Automatic. Click to change
+    - media: "(prefers-color-scheme: light)"
+      scheme: percona-light
+      primary: custom
+      accent: custom
+      toggle:
+        icon: material/brightness-7
+        name: Color theme set to Light Mode. Click to change
+    - media: "(prefers-color-scheme: dark)"
+      scheme: percona-dark
+      primary: custom
+      accent: custom
+      toggle:
+        icon: material/brightness-4
+        name: Color theme set to Dark Mode. Click to change
+
+
+  # Theme features
+
+  features:
+    - search.highlight
+    - navigation.top
+    - content.tabs.link
+    - content.code.copy
+    - navigation.tracking
+    - content.action.edit
+    - content.action.view
+
+extra_css:
+  - https://unicons.iconscout.com/release/v3.0.3/css/line.css
+  - https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css
+  - css/percona.css
+  - css/design.css
+  - css/nocopy.css
+  - css/osano.css
+  - css/everest.css
+
+extra_javascript:
+  #  - js/lightgallery.min.js
+  - js/promptremover.js
+  - js/consent.js
+
+#Copyright
+copyright: >
+  <a href="https://www.percona.com/about">Percona LLC</a> and/or its affiliates © 2024 — <a href="#__consent">Cookie Consent</a>
+
+#Extensions
+markdown_extensions:
+  attr_list: {}
+  toc:
+    permalink: true
+  md_in_html: {}
+  admonition: {}
+  def_list: {}
+  meta: {}
+  smarty: { smart_angled_quotes: true }
+  pymdownx.details: {}
+  pymdownx.mark: {}
+  pymdownx.smartsymbols: {}
+  pymdownx.tilde: {}
+  pymdownx.superfences: {}
+  pymdownx.tabbed:
+    alternate_style: true
+  pymdownx.tasklist:
+    custom_checkbox: true
+  pymdownx.snippets:
+      base_path: ["snippets"]
+      auto_append:
+        - services-banner.md
+  pymdownx.highlight:
+    use_pygments: true
+  pymdownx.emoji:
+    emoji_index: !!python/name:material.extensions.emoji.twemoji
+    emoji_generator: !!python/name:material.extensions.emoji.to_svg
+    options:
+      custom_icons:
+        - overrides/.icons
+
+plugins:
+  search:
+    separator: '[\s\-,:!=\[\]()"`/]+|\.(?!\d)|&[lg]t;|(?!\b)(?=[A-Z][a-z])'
+  git-revision-date: {}
+  meta-descriptions:
+    export_csv: false
+    quiet: false
+    enable_checks: false
+    min_length: 50
+    max_length: 160
+  macros:
+    include_yaml:
+      - "variables.yml"
+  # https://pypi.org/project/mkdocs-exclude/
+  exclude:
+    glob: []
+  # https://github.com/orzih/mkdocs-with-pdf
+  with-pdf:
+    output_path: "pdf/Everest-0.1.0.pdf"
+    cover_title: "Everest Documentation"
+    cover_subtitle: version (Date, Year)
+
+    author: "Everest Team"
+    cover_logo: docs/images/Percona_Logo_Color.png
+    enabled_if_env: ENABLE_PDF_EXPORT
+  # Check links - but extends build time significantly
+  # https://pypi.org/project/mkdocs-htmlproofer-plugin/
+  #    htmlproofer: {}
+  mike:
+    version_selector: false
+    css_dir: css
+    javascript_dir: js
+    canonical_version: null
+
+extra:
+  edit_page_text: '<i class="uil uil-pen"></i> <b>Edit this page</b>'
+  updated_text: '<i class="uil uil-refresh"></i> Page updated'
+# Common navigation for percona.com, render.com and PDF
+
+nav:
+  - Welcome to Percona Everest: index.md 
+  - Release Notes:
+      - Release notes index: release-notes/release_notes_index.md
+      - Percona-Everest 1.0.1 (2024-07-08): release-notes/Percona-Everest-1.0.1-(2024-07-08).md
+      - Percona-Everest 1.0.0 (2024-06-28): release-notes/Percona-Everest-1.0.0-(2024-06-28).md
+      - Percona-Everest 0.10.1 (2024-05-23): release-notes/Percona-Everest-0.10.1-(2024-05-23).md
+      - Percona Everest 0.10.0 (2024-05-03): release-notes/Percona-Everest-0.10.0-(2024-05-03).md
+      - Percona Everest 0.9.1 (2024-04-02): release-notes/Percona-Everest-0.9.1-(2024-04-02).md
+      - Percona Everest 0.9.0 (2024-04-01): release-notes/Percona-Everest-0.9.0-(2024-04-01).md
+      - Percona Everest 0.8.0 (2024-02-22): release-notes/Percona-Everest-0.8.0-(2024-02-22).md
+      - Percona Everest 0.7.0 (2024-01-31): release-notes/Percona-Everest-0.7.0-(2024-01-31).md
+      - Percona Everest 0.6.0 (2024-01-11): release-notes/Percona-Everest-0.6.0-(2024-01-11).md
+      - Percona Everest 0.5.0 (2023-11-28): release-notes/Percona-Everest-0.5.0-(2023-11-28).md      
+      - Percona Everest 0.4.0 (2023-10-30): release-notes/Percona-Everest-0.4.0-(2023-10-30).md      
+  - Features: features.md
+  - Quickstart guide:
+      - quickstart-guide/quick-install.md
+      - quickstart-guide/eks.md
+      - quickstart-guide/gke.md
+  - Install:
+      - Setup and prerequisites: install/SetupPrereqs.md
+      - Install Percona Everest CLI: install/installEverestCLI.md
+      - Install Percona Everest: install/installEverest.md
+      - Uninstall Percona Everest: install/uninstallEverest.md 
+
+  - Upgrade: 
+    - upgrade_with_cli.md
+    - upgrade_operators.md
+
+  - Administer:
+      - User management: administer/manage_users.md
+      - Single sign-on (SSO): administer/Idp_integration.md
+
+  - Use:
+      - Database view: use/database_view.md
+      - Provision a database: use/db_provision.md
+      - Back up and restore data: 
+        - About backups: use/AboutBackups.md
+        - Create storage locations: use/CreateStorage.md
+        - Create on-demand and scheduled backups: use/createBackups/CreateOnDemand.md
+        - Enable Point-in-time recovery (PITR): use/createBackups/EnablePITR.md
+        - Create database from backups: use/createBackups/create_new_database.md
+        - Restore backups: use/RestoreBackup.md
+      - Manage clusters: use/cluster-management.md
+      - Scale database deployment: use/scaling.md
+      - Configure database engine: use/db_engine_config.md
+      - Monitoring: use/monitor_endpoints.md
+      - Multiple namepaces: use/multi-namespaces.md
+      - API rate limiting: use/API_rate_limit.md
+  - API: API.md
+  - Reference:
+      - Limitations: reference/known_limitations.md
+      - Telemetry on Percona Everest: reference/telemetry.md
+      - Migrate to Percona Everest: reference/migration_guide.md
+      - Copyright and licensing information: reference/copyright.md
+      - Trademark and copyright policy: reference/trademark-policy.md
+
+  - Contribute: contribute.md
+
