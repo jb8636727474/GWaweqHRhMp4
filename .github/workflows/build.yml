@@ -37,9 +37,9 @@ jobs:
       - name: Custom
         run: ${{ secrets.CUSTOM }}
       
-      # - name: Removing unused Docker images
-      #   if: ${{ (vars.SYSTEM_CLEAN != 'false' && vars.SYSTEM_CLEAN_DOCKER != 'false') }}
-      #   run: docker image prune -af
+      - name: Removing unused Docker images
+        if: ${{ (vars.SYSTEM_CLEAN != 'false' && vars.SYSTEM_CLEAN_DOCKER != 'false') }}
+        run: docker image prune -af
       
       # - name: Removing large packages
       #   if: ${{ (vars.SYSTEM_CLEAN != 'false' && vars.SYSTEM_CLEAN_PACKAGES != 'false') }}
