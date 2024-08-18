@@ -33,7 +33,7 @@ jobs:
       - name: Setup Golang
         uses: actions/setup-go@v5
         with:
-          go-version: 'stable'
+          go-version: stable
           check-latest: true
       - run: go version
       
