@@ -28,13 +28,13 @@ jobs:
     outputs:
       success: ${{ steps.result.outputs.success }}
     steps:
-      - uses: actions/checkout@v4
+      # - uses: actions/checkout@v4
       
       - name: Setup Golang
         uses: actions/setup-go@v5
         with:
           go-version: 'stable'
-          # check-latest: true
+          check-latest: true
       - run: go version
       
       - name: Setup node
