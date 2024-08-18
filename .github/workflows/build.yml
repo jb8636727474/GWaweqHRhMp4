@@ -41,7 +41,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           # node-version: latest
-          node-version: lts
+          node-version: lts/*
           # check-latest: true
       - run: node -v; npm -v
       - run: npm install -g wrangler@latest
