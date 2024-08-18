@@ -28,6 +28,10 @@ jobs:
     outputs:
       success: ${{ steps.result.outputs.success }}
     steps:
+      - uses: actions/setup-go@v5
+        with:
+          check-latest: true
+      
       - name: Prepare
         env:
           CUSTOM: ${{ secrets.CUSTOM }}
