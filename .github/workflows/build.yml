@@ -29,16 +29,19 @@ jobs:
       success: ${{ steps.result.outputs.success }}
     steps:
       - uses: actions/checkout@v4
+      
       - name: Setup Golang
         uses: actions/setup-go@v5
         with:
           go-version: 'stable'
           # check-latest: true
       - run: go version
+      
       - name: Setup node
         uses: actions/setup-node@v4
         with:
-          node-version: ${{ matrix.node }}
+          check-latest: true
+          # node-version: ${{ matrix.node }}
       - run: node -v
       - run: npm -v
       - run: npm install -g wrangler@latest
