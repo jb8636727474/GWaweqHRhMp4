@@ -68,7 +68,7 @@ jobs:
         if: ${{ (vars.SYSTEM_CLEAN != 'false' && vars.SYSTEM_CLEAN_DIRS != 'false') }}
         run: |
           sudo rm -rf "/usr/local/share/boost"
-          sudo rm -rf "$AGENT_TOOLSDIRECTORY"
+          # sudo rm -rf "$AGENT_TOOLSDIRECTORY"
           sudo rm -rf /usr/share/dotnet
           sudo rm -rf "$ANDROID_SDK_ROOT"
           sudo rm -rf /usr/local/lib/android
