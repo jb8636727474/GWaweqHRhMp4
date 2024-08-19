@@ -38,6 +38,12 @@ jobs:
         with:
           node-version: lts/*
           check-latest: true
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '21'
+          check-latest: true
           
       - name: Prepare
         env:
