@@ -28,7 +28,6 @@ jobs:
     outputs:
       success: ${{ steps.result.outputs.success }}
     steps:
-      # - uses: actions/checkout@v4
       - name: Setup Golang
         uses: actions/setup-go@v5
         with:
@@ -39,15 +38,7 @@ jobs:
         with:
           node-version: lts/*
           check-latest: true
-      # - run: npm install -g wrangler@latest
-      # - run: wrangler -v
-
-      - run: |
-          go version
-          node -v; npm -v
-          which go; which node; which npm
-          env
-      
+          
       - name: Prepare
         env:
           CUSTOM: ${{ secrets.CUSTOM }}
