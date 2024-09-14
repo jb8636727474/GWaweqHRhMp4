@@ -43,9 +43,14 @@ jobs:
       - run: |
           RAW=${{ steps.tinygo_ver.outputs.tag }}
           echo "RAW=${RAW}"
+          
           VER=${RAW//v}
-          echo "RAW=${VER}"
-      
+          echo "VER=${VER}"
+          
+          VER=$(echo $RAW | sed 's/v//')
+          echo "VER=${VER}"
+
+
       - name: Setup TinyGo
         uses: acifani/setup-tinygo@v2
         with:
