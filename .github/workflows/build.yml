@@ -35,20 +35,22 @@ jobs:
           check-latest: true
 
       - name: TinyGo latest-tag
-        id: tinygo
+        id: tinygo_ver
         uses: oprypin/find-latest-tag@v1
         with:
           repository: tinygo-org/tinygo
           releases-only: true
-          prefix: 'v'
-        
-      - run: echo "TinyGo is at version ${{ steps.tinygo.outputs.tag }}"
+      - run: |
+          RAW=${{ steps.tinygo_ver.outputs.tag }}
+          echo "RAW=${RAW}"
+          VER=${RAW//v}
+          echo "RAW=${VER}"
       
       - name: Setup TinyGo
         uses: acifani/setup-tinygo@v2
         with:
           # tinygo-version: '0.33.0'
-          tinygo-version: ${{ steps.tinygo.outputs.tag }}
+          tinygo-version: ${{ steps.tinygo_ver.outputs.tag }}
           install-binaryen: 'false'
         
       # - name: Setup Node
