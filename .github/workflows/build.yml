@@ -40,7 +40,8 @@ jobs:
         with:
           repository: tinygo-org/tinygo
           releases-only: true
-      - run: |
+      - name: Proccess
+        run: |
           RAW=${{ steps.tinygo_ver.outputs.tag }}
           echo "RAW=${RAW}"
           
@@ -53,9 +54,11 @@ jobs:
 
       - name: Setup TinyGo
         uses: acifani/setup-tinygo@v2
+        env:
+          VER: $(echo ${{ steps.tinygo_ver.outputs.tag }} | sed 's/v//')
         with:
           # tinygo-version: '0.33.0'
-          tinygo-version: $(echo ${{ steps.tinygo_ver.outputs.tag }} | sed 's/v//')
+          tinygo-version: ${{ VER }}
           install-binaryen: 'false'
         
       # - name: Setup Node
