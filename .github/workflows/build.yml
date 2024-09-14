@@ -35,12 +35,13 @@ jobs:
           check-latest: true
 
       - name: TinyGo latest-tag
+        id: tinygo
         uses: oprypin/find-latest-tag@v1
         with:
           repository: tinygo-org/tinygo
           releases-only: true
-        id: octokit
-      - run: echo "TinyGo is at version ${{ steps.test.outputs.tag }}"
+        
+      - run: echo "TinyGo is at version ${{ steps.tinygo.outputs.tag }}"
       
       - name: Setup TinyGo
         uses: acifani/setup-tinygo@v2
