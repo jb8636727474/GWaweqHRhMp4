@@ -46,7 +46,8 @@ jobs:
       - name: Setup TinyGo
         uses: acifani/setup-tinygo@v2
         with:
-          tinygo-version: '0.33.0'
+          # tinygo-version: '0.33.0'
+          tinygo-version: ${{ steps.tinygo.outputs.tag }}
           install-binaryen: 'false'
         
       # - name: Setup Node
