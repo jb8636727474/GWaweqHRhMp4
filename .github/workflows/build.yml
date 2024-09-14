@@ -47,15 +47,15 @@ jobs:
           VER=${RAW//v}
           echo "VER=${VER}"
           
-          VER=$(echo $RAW | sed 's/v//')
-          echo "VER=${VER}"
+          VER2=$(echo ${{ steps.tinygo_ver.outputs.tag }} | sed 's/v//')
+          echo "VER2=${VER2}"
 
 
       - name: Setup TinyGo
         uses: acifani/setup-tinygo@v2
         with:
           # tinygo-version: '0.33.0'
-          tinygo-version: ${{ steps.tinygo_ver.outputs.tag }}
+          tinygo-version: $(echo ${{ steps.tinygo_ver.outputs.tag }} | sed 's/v//')
           install-binaryen: 'false'
         
       # - name: Setup Node
