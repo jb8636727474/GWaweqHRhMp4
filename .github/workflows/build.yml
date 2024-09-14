@@ -40,22 +40,17 @@ jobs:
         with:
           repository: tinygo-org/tinygo
           releases-only: true
-      - name: Clean TinyGo latest tag
+      - name: Clean TinyGo tag
         id: tinygo_ver
         run: |
           # VER=$(echo ${{ steps.tinygo_tag.outputs.tag }} | sed 's/[a-zA-Z]//g')
           TAG=${{ steps.tinygo_tag.outputs.tag }}
           VER=${TAG//[a-zA-Z]/}
-          echo "VER=${VER}"
-          echo "VER=${VER}" >> "$GITHUB_OUTPUT"
-
-
+          echo "ver=${VER}" >> "$GITHUB_OUTPUT"
       - name: Setup TinyGo
         uses: acifani/setup-tinygo@v2
         with:
-          # tinygo-version: '0.33.0'
-          # tinygo-version: $TINYGO_VER
-          tinygo-version: ${{ steps.tinygo_ver.outputs.VER }}
+          tinygo-version: ${{ steps.tinygo_ver.outputs.ver }}
           install-binaryen: 'false'
         
       # - name: Setup Node
