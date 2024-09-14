@@ -58,7 +58,7 @@ jobs:
           VER: $(echo ${{ steps.tinygo_ver.outputs.tag }} | sed 's/v//')
         with:
           # tinygo-version: '0.33.0'
-          tinygo-version: ${{ VER }}
+          tinygo-version: ${{ env.VER }}
           install-binaryen: 'false'
         
       # - name: Setup Node
