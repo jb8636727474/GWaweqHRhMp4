@@ -44,7 +44,8 @@ jobs:
         id: tinygo_ver
         run: |
           # VER=$(echo ${{ steps.tinygo_tag.outputs.tag }} | sed 's/[a-zA-Z]//g')
-          VER=${${{ steps.tinygo_tag.outputs.tag }}//[a-zA-Z]/
+          TAG=${{ steps.tinygo_tag.outputs.tag }}
+          VER=${TAG//[a-zA-Z]/
           echo "VER=${VER}"
           echo "VER=${VER}" >> "$GITHUB_OUTPUT"
 
