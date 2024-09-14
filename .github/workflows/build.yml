@@ -40,6 +40,7 @@ jobs:
         with:
           repository: tinygo-org/tinygo
           releases-only: true
+          prefix: 'v'
         
       - run: echo "TinyGo is at version ${{ steps.tinygo.outputs.tag }}"
       
