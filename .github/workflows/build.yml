@@ -49,16 +49,18 @@ jobs:
           VER1=${RAW//v}
           echo "VER1=${VER1}"
           
-          TINYGO_VER=$(echo ${{ steps.tinygo_tag.outputs.tag }} | sed 's/v//')
-          echo "TINYGO_VER=${TINYGO_VER}"
-          echo "TINYGO_VER=${TINYGO_VER}" >> "$GITHUB_ENV"
+          VER=$(echo ${{ steps.tinygo_tag.outputs.tag }} | sed 's/v//')
+          echo "VER=${VER}"
+          # echo "VER=${VER}" >> "$GITHUB_ENV"
+          echo "VER=${VER}" >> "$GITHUB_OUTPUT"
 
 
       - name: Setup TinyGo
         uses: acifani/setup-tinygo@v2
         with:
           # tinygo-version: '0.33.0'
-          tinygo-version: $TINYGO_VER
+          # tinygo-version: $TINYGO_VER
+          tinygo-version: ${{ steps.tinygo_ver.outputs.VER }}
           install-binaryen: 'false'
         
       # - name: Setup Node
