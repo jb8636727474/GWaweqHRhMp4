@@ -43,15 +43,9 @@ jobs:
       - name: Clean TinyGo latest tag
         id: tinygo_ver
         run: |
-          RAW=${{ steps.tinygo_tag.outputs.tag }}
-          echo "RAW=${RAW}"
-          
-          VER1=${RAW//v}
-          echo "VER1=${VER1}"
-          
-          VER=$(echo ${{ steps.tinygo_tag.outputs.tag }} | sed 's/v//')
+          # VER=$(echo ${{ steps.tinygo_tag.outputs.tag }} | sed 's/v//')
+          VER=$(echo ${{ steps.tinygo_tag.outputs.tag }} | sed 's/[^a-zA-Z]+//')
           echo "VER=${VER}"
-          # echo "VER=${VER}" >> "$GITHUB_ENV"
           echo "VER=${VER}" >> "$GITHUB_OUTPUT"
 
 
