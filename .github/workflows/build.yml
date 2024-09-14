@@ -33,6 +33,10 @@ jobs:
         with:
           go-version: stable
           check-latest: true
+      - name: Setup TinyGo
+        uses: acifani/setup-tinygo@v2
+        with:
+          tinygo-version: '0.33.0'
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
