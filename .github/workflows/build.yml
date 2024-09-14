@@ -34,31 +34,31 @@ jobs:
           go-version: stable
           check-latest: true
 
-      - name: TinyGo latest-tag
-        id: tinygo_ver
+      - name: Get TinyGo latest tag
+        id: tinygo_tag
         uses: oprypin/find-latest-tag@v1
         with:
           repository: tinygo-org/tinygo
           releases-only: true
-      - name: Proccess
+      - name: Clean TinyGo latest tag
+        id: tinygo_ver
         run: |
-          RAW=${{ steps.tinygo_ver.outputs.tag }}
+          RAW=${{ steps.tinygo_tag.outputs.tag }}
           echo "RAW=${RAW}"
           
-          VER=${RAW//v}
-          echo "VER=${VER}"
+          VER1=${RAW//v}
+          echo "VER1=${VER1}"
           
-          VER2=$(echo ${{ steps.tinygo_ver.outputs.tag }} | sed 's/v//')
-          echo "VER2=${VER2}"
+          TINYGO_VER=$(echo ${{ steps.tinygo_tag.outputs.tag }} | sed 's/v//')
+          echo "TINYGO_VER=${TINYGO_VER}"
+          echo "TINYGO_VER=${TINYGO_VER}" >> "$GITHUB_ENV"
 
 
       - name: Setup TinyGo
         uses: acifani/setup-tinygo@v2
-        env:
-          VER: $(echo ${{ steps.tinygo_ver.outputs.tag }} | sed 's/v//')
         with:
           # tinygo-version: '0.33.0'
-          tinygo-version: ${{ env.VER }}
+          tinygo-version: $TINYGO_VER
           install-binaryen: 'false'
         
       # - name: Setup Node
