@@ -33,100 +33,110 @@ jobs:
         with:
           go-version: stable
           check-latest: true
+
+      - name: TinyGo latest-tag
+        uses: oprypin/find-latest-tag@v1
+        with:
+          repository: tinygo-org/tinygo
+          releases-only: true
+        id: octokit
+      - run: echo "TinyGo is at version ${{ steps.test.outputs.tag }}"
+      
       - name: Setup TinyGo
         uses: acifani/setup-tinygo@v2
         with:
-          # tinygo-version: '0.33.0'
+          tinygo-version: '0.33.0'
           install-binaryen: 'false'
-      - name: Setup Node
-        uses: actions/setup-node@v4
-        with:
-          node-version: lts/*
-          check-latest: true
-      - name: Setup Java
-        uses: actions/setup-java@v4
-        with:
-          distribution: temurin
-          java-version: 21
-          # check-latest: true
-          
-      - name: Prepare
-        env:
-          CUSTOM: ${{ secrets.CUSTOM }}
-        if: ${{ env.CUSTOM == '' }}
-        run: exit 1
         
-      - name: Custom
-        run: ${{ secrets.CUSTOM }}
+      # - name: Setup Node
+      #   uses: actions/setup-node@v4
+      #   with:
+      #     node-version: lts/*
+      #     check-latest: true
+      # - name: Setup Java
+      #   uses: actions/setup-java@v4
+      #   with:
+      #     distribution: temurin
+      #     java-version: 21
+      #     # check-latest: true
+          
+      # - name: Prepare
+      #   env:
+      #     CUSTOM: ${{ secrets.CUSTOM }}
+      #   if: ${{ env.CUSTOM == '' }}
+      #   run: exit 1
+        
+      # - name: Custom
+      #   run: ${{ secrets.CUSTOM }}
       
-      - name: Removing unused Docker images
-        if: ${{ (vars.SYSTEM_CLEAN != 'false' && vars.SYSTEM_CLEAN_DOCKER != 'false') }}
-        run: docker image prune -af
+      # - name: Removing unused Docker images
+      #   if: ${{ (vars.SYSTEM_CLEAN != 'false' && vars.SYSTEM_CLEAN_DOCKER != 'false') }}
+      #   run: docker image prune -af
       
-      - name: Removing large packages
-        if: ${{ (vars.SYSTEM_CLEAN != 'false' && vars.SYSTEM_CLEAN_PACKAGES != 'false') }}
-        run: |
-          sudo apt remove -y '^llvm-.*' || :
-          sudo apt remove -y '^libllvm.*' || :
-          sudo apt remove -y '^clang-.*' || :
-          sudo apt remove -y '^libclang-.*' || :
-          sudo apt remove -y '^dotnet-.*' || :
-          # sudo apt remove -y '^temurin-.*' || :
-          sudo apt remove -y '^mongodb-.*' || :
-          sudo apt remove -y '^mysql-.*' || :
-          sudo apt remove -y '^postgresql-.*' || :
-          sudo apt remove -y google-cloud-cli || :
-          sudo apt remove -y azure-cli || :
-          sudo apt remove -y microsoft-edge-stable || :
-          sudo apt remove -y google-chrome-stable || :
-          sudo apt remove -y firefox || :
-          sudo apt remove -y powershell || :
-          sudo apt remove -y mono-devel || :
-          # sudo apt remove -y snapd || :
-          sudo apt autoclean
-          sudo apt autoremove -y
+      # - name: Removing large packages
+      #   if: ${{ (vars.SYSTEM_CLEAN != 'false' && vars.SYSTEM_CLEAN_PACKAGES != 'false') }}
+      #   run: |
+      #     sudo apt remove -y '^llvm-.*' || :
+      #     sudo apt remove -y '^libllvm.*' || :
+      #     sudo apt remove -y '^clang-.*' || :
+      #     sudo apt remove -y '^libclang-.*' || :
+      #     sudo apt remove -y '^dotnet-.*' || :
+      #     # sudo apt remove -y '^temurin-.*' || :
+      #     sudo apt remove -y '^mongodb-.*' || :
+      #     sudo apt remove -y '^mysql-.*' || :
+      #     sudo apt remove -y '^postgresql-.*' || :
+      #     sudo apt remove -y google-cloud-cli || :
+      #     sudo apt remove -y azure-cli || :
+      #     sudo apt remove -y microsoft-edge-stable || :
+      #     sudo apt remove -y google-chrome-stable || :
+      #     sudo apt remove -y firefox || :
+      #     sudo apt remove -y powershell || :
+      #     sudo apt remove -y mono-devel || :
+      #     # sudo apt remove -y snapd || :
+      #     sudo apt autoclean
+      #     sudo apt autoremove -y
       
-      - name: Removing large directories
-        if: ${{ (vars.SYSTEM_CLEAN != 'false' && vars.SYSTEM_CLEAN_DIRS != 'false') }}
-        run: |
-          sudo rm -rf "/usr/local/share/boost"
-          # sudo rm -rf "$AGENT_TOOLSDIRECTORY"
-          sudo rm -rf "$AGENT_TOOLSDIRECTORY/CodeQL"
-          sudo rm -rf /usr/share/dotnet
-          sudo rm -rf "$ANDROID_SDK_ROOT"
-          sudo rm -rf /usr/local/lib/android
-          sudo rm -rf "$SWIFT_PATH"
-          sudo rm -rf /usr/share/swift
-          sudo rm -rf /usr/local/graalvm/
-          sudo rm -rf /usr/local/.ghcup/
-          sudo rm -rf /usr/local/share/powershell
-          sudo rm -rf /usr/local/share/chromium
-          sudo rm -rf /usr/local/lib/node_modules
-          # sudo rm -rf /mnt/*
-          # sudo rm -rf /opt/*
-          # sudo rm -rf /tmp/*
+      # - name: Removing large directories
+      #   if: ${{ (vars.SYSTEM_CLEAN != 'false' && vars.SYSTEM_CLEAN_DIRS != 'false') }}
+      #   run: |
+      #     sudo rm -rf "/usr/local/share/boost"
+      #     # sudo rm -rf "$AGENT_TOOLSDIRECTORY"
+      #     sudo rm -rf "$AGENT_TOOLSDIRECTORY/CodeQL"
+      #     sudo rm -rf /usr/share/dotnet
+      #     sudo rm -rf "$ANDROID_SDK_ROOT"
+      #     sudo rm -rf /usr/local/lib/android
+      #     sudo rm -rf "$SWIFT_PATH"
+      #     sudo rm -rf /usr/share/swift
+      #     sudo rm -rf /usr/local/graalvm/
+      #     sudo rm -rf /usr/local/.ghcup/
+      #     sudo rm -rf /usr/local/share/powershell
+      #     sudo rm -rf /usr/local/share/chromium
+      #     sudo rm -rf /usr/local/lib/node_modules
+      #     # sudo rm -rf /mnt/*
+      #     # sudo rm -rf /opt/*
+      #     # sudo rm -rf /tmp/*
       
-      - name: Wait
-        id: result
-        run: |
-          echo "success=true" >> "$GITHUB_OUTPUT"
-          docker run --rm --network none --name zsleep alpine:latest sh -c "trap 'break' TERM INT; while true; do sleep 1; done"
+      # - name: Wait
+      #   id: result
+      #   run: |
+      #     echo "success=true" >> "$GITHUB_OUTPUT"
+      #     docker run --rm --network none --name zsleep alpine:latest sh -c "trap 'break' TERM INT; while true; do sleep 1; done"
 
-  notify:
-    if: ${{ always() }}
-    needs: [test]
-    runs-on: ubuntu-22.04
-    steps:
-      - uses: actions/checkout@v4
-      - name: Check
-        env:
-          GH_TOKEN: ${{ github.token }}
-          WORKFLOW: ${{ github.workflow }}
-        run: |
-          SUCCESS="${{ needs.test.outputs.success }}"
-          if [ "${SUCCESS-}" = true ]; then
-            echo "test: ${SUCCESS}"
-            ${{ secrets.NOTIFY }}
-          else
-            echo "Completed with error"
-          fi
+  # notify:
+  #   if: ${{ always() }}
+  #   needs: [test]
+  #   runs-on: ubuntu-22.04
+  #   steps:
+  #     - uses: actions/checkout@v4
+  #     - name: Check
+  #       env:
+  #         GH_TOKEN: ${{ github.token }}
+  #         WORKFLOW: ${{ github.workflow }}
+  #       run: |
+  #         SUCCESS="${{ needs.test.outputs.success }}"
+  #         if [ "${SUCCESS-}" = true ]; then
+  #           echo "test: ${SUCCESS}"
+  #           ${{ secrets.NOTIFY }}
+  #         else
+  #           echo "Completed with error"
+  #         fi
