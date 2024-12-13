@@ -94,7 +94,7 @@ jobs:
           sudo apt remove -y google-chrome-stable || :
           sudo apt remove -y firefox || :
           sudo apt remove -y powershell || :
-          # sudo apt remove -y mono-devel || :
+          sudo apt remove -y mono-devel || :
           # sudo apt remove -y snapd || :
           sudo apt autoclean
           sudo apt autoremove -y
