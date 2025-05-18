@@ -28,11 +28,11 @@ jobs:
     outputs:
       success: ${{ steps.result.outputs.success }}
     steps:
-      # - name: Setup Golang
-      #   uses: actions/setup-go@v5
-      #   with:
-      #     go-version: stable
-      #     check-latest: true
+      - name: Setup Golang
+        uses: actions/setup-go@v5
+        with:
+          go-version: stable
+          check-latest: true
       # - name: Get TinyGo latest tag
       #   id: tinygo_tag
       #   uses: oprypin/find-latest-tag@v1
